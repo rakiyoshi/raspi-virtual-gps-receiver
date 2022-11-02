@@ -1,0 +1,34 @@
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - id: transmitter
+    binary: transmitter
+    main: ./cmd/transmitter
+    goos:
+      - linux
+    goarch:
+      - arm
+      - arm64
+  - id: receiver
+    binary: receiver
+    main: ./cmd/receiver
+    goos:
+      - linux
+    goarch:
+      - arm
+      - arm64
+archives:
+  - format: binary
+    replacements:
+      arm64: arm64
+      arm: arm32
+    name_template: "{{ .Binary }}_{{ .Version }}_{{ .Arch }}"
+checksum:
+  name_template: 'checksums.txt'
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
