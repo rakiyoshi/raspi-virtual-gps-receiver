@@ -2,17 +2,9 @@ before:
   hooks:
     - go mod tidy
 builds:
-  - id: transmitter
-    binary: transmitter
-    main: ./cmd/transmitter
-    goos:
-      - linux
-    goarch:
-      - arm
-      - arm64
-  - id: receiver
-    binary: receiver
-    main: ./cmd/receiver
+  - id: pigps
+    binary: pigps
+    main: ./cmd/pigps
     goos:
       - linux
     goarch:
