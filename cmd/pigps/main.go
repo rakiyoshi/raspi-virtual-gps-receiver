@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/rakiyoshi/raspi-virtual-gps-receiver/pkg/nmealib"
 	"github.com/rakiyoshi/raspi-virtual-gps-receiver/pkg/transmitter"
 )
 
@@ -12,10 +13,7 @@ func main() {
 	defer w.Close()
 
 	for {
-		// Deprecated: this is dummy
-		dummy := "$GPZDA,092403,15,07,2017,,"
-
-		fmt.Fprintln(w, dummy)
-		time.Sleep(10 * time.Second)
+		fmt.Fprintln(w, nmealib.FromTime(time.Now()))
+		time.Sleep(1 * time.Second)
 	}
 }
