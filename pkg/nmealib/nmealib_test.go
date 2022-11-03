@@ -5,14 +5,14 @@ import (
 	"time"
 )
 
-func TestFromTime(t *testing.T) {
+func TestFromTimeToZDA(t *testing.T) {
 	tests := []struct {
 		input string
 		want  string
 	}{
 		{
 			"2006-01-02T15:04:05Z",
-			"$GPZDA,150405.000,02,01,2006,,",
+			"$GPZDA,150405.000,02,01,2006,,\r\n",
 		},
 	}
 
@@ -21,7 +21,7 @@ func TestFromTime(t *testing.T) {
 		if err != nil {
 			t.Errorf("invalid input: %v", err)
 		}
-		got := FromTime(time)
+		got := FromTimeToZDA(time)
 		if got != tt.want {
 			t.Errorf("got = \"%s\", want = \"%s\"", got, tt.want)
 		}
