@@ -13,7 +13,9 @@ func main() {
 	defer w.Close()
 
 	for {
-		fmt.Fprint(w, nmealib.FromTimeToGGA(time.Now().UTC()))
+		message := nmealib.FromTimeToGGA(time.Now().UTC())
+		fmt.Fprint(w, message)
+		fmt.Print(message)
 		time.Sleep(1 * time.Second)
 	}
 }
