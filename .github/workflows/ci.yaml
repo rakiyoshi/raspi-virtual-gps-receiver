@@ -1,4 +1,4 @@
-name: Lint lib
+name: Lint
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - pkg/**
       - cmd/**
       - go.mod
-      - .github/workflows/ci-lib.yml
+      - .github/workflows/ci.yml
 
 env:
   GO_VERSION: 1.19
