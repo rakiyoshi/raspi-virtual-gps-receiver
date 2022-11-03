@@ -13,7 +13,7 @@ func main() {
 	defer w.Close()
 
 	for {
-		fmt.Fprintln(w, nmealib.FromTime(time.Now()))
+		fmt.Fprintln(w, nmealib.FromTime(time.Now().UTC()))
 		time.Sleep(1 * time.Second)
 	}
 }
