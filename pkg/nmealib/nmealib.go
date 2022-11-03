@@ -87,7 +87,7 @@ func FromTimeToRMC(t time.Time) string {
 	var data []string
 
 	//  1: Log header
-	data = append(data, "$GPZDA")
+	data = append(data, "$GPRMC")
 	//  2: UTC of position
 	data = append(data, fmt.Sprintf(
 		"%02d%02d%02d.%03d",
