@@ -32,9 +32,11 @@ func FromTimeToZDA(t time.Time) string {
 	data = append(data, "")
 	// 7: null (Local zone minutes description - not available)
 	data = append(data, "")
-	// 8: checksum (optional)
 
-	return strings.Join(data, ",") + "\r\n" // 9: <CR><LF>
+	message := strings.Join(data, ",")
+	message += fmt.Sprintf("*%s", getChecksum(strings.TrimPrefix(message, "$"))) + // 8: checksum
+		"\r\n" // 9: <CR><LF>
+	return message
 }
 
 // Reference: https://docs.novatel.com/OEM7/Content/Logs/GPGGA.htm
@@ -45,11 +47,11 @@ func FromTimeToGGA(t time.Time) string {
 	data = append(data, "$GPGGA")
 	//  2: UTC time status of position (hhmmss or hhmmss.ss)
 	data = append(data, fmt.Sprintf(
-		"%02d%02d%02d.%03d",
+		"%02d%02d%02d.%02d",
 		t.Hour(),
 		t.Minute(),
 		t.Second(),
-		t.Nanosecond()/1000/1000,
+		t.Nanosecond()/1000/1000/10,
 	))
 	//  3: Latitude (DDmm.mm)
 	data = append(data, "3504.528")
@@ -77,9 +79,11 @@ func FromTimeToGGA(t time.Time) string {
 	data = append(data, "")
 	// 15: Differential base station ID
 	data = append(data, "")
-	// 16: checksum (optional)
 
-	return strings.Join(data, ",") + "\r\n" // 17: <CR><LF>
+	message := strings.Join(data, ",")
+	message += fmt.Sprintf("*%s", getChecksum(strings.TrimPrefix(message, "$"))) + // 16: checksum
+		"\r\n" // 17: <CR><LF>
+	return message
 }
 
 // Reference: https://docs.novatel.com/OEM7/Content/Logs/GPRMC.htm
@@ -90,11 +94,11 @@ func FromTimeToRMC(t time.Time) string {
 	data = append(data, "$GPRMC")
 	//  2: UTC of position
 	data = append(data, fmt.Sprintf(
-		"%02d%02d%02d.%03d",
+		"%02d%02d%02d.%02d",
 		t.Hour(),
 		t.Minute(),
 		t.Second(),
-		t.Nanosecond()/1000/1000,
+		t.Nanosecond()/1000/1000/10,
 	))
 	//  3: Position status (A = data valid, V = data invalid)
 	data = append(data, "A")
@@ -118,7 +122,17 @@ func FromTimeToRMC(t time.Time) string {
 	data = append(data, "")
 	// 13: Positioning system mode indicator (Ref: https://docs.novatel.com/OEM7/Content/Logs/GPRMC.htm#NMEAPositioningSystemModeIndicator)
 	data = append(data, "A")
-	// 14: checksum (optional)
 
-	return strings.Join(data, ",") + "\r\n" // 15: <CR><LF>
+	message := strings.Join(data, ",")
+	message += fmt.Sprintf("*%s", getChecksum(strings.TrimPrefix(message, "$"))) + // 14: checksum
+		"\r\n" // 15: <CR><LF>
+	return message
+}
+
+func getChecksum(message string) string {
+	var sum byte
+	for _, s := range []byte(message) {
+		sum = sum ^ s
+	}
+	return fmt.Sprintf("%02X", int(sum))
 }
