@@ -134,5 +134,5 @@ func getChecksum(message string) string {
 	for _, s := range []byte(message) {
 		sum = sum ^ s
 	}
-	return fmt.Sprintf("%X", int(sum))
+	return fmt.Sprintf("%02X", int(sum))
 }
