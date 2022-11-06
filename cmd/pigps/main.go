@@ -13,12 +13,12 @@ func main() {
 	defer w.Close()
 
 	for {
-		message := nmealib.FromTimeToGGA(time.Now().UTC())
+		message := nmealib.FromTimeToGGA(time.Now())
 		fmt.Fprint(w, message)
 		fmt.Print(message)
 		time.Sleep(500 * time.Millisecond)
 
-		message = nmealib.FromTimeToRMC(time.Now().UTC())
+		message = nmealib.FromTimeToRMC(time.Now())
 		fmt.Fprint(w, message)
 		fmt.Print(message)
 		time.Sleep(500 * time.Millisecond)
