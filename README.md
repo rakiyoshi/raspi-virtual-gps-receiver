@@ -42,5 +42,13 @@ sudo reboot
 goreleaser build --snapshot --rm-dist
 ```
 
+## Run
+
+```bash
+./dist/pigps_linux_arm64/pigps
+# for ARM v6
+# ./dist/pigps_linux_arm_6/pigps
+```
+
 ## Reference
 [NMEAフォーマット](http://www.hdlc.jp/~jh8xvh/jp/gps/nmea.html)
