@@ -40,7 +40,8 @@ sudo reboot
 ```bash
 curl -LO https://github.com/rakiyoshi/raspi-virtual-gps-receiver/releases/download/v0.0.8/pigps_0.0.8_arm32
 sudo cp ./pigps_0.0.8_arm32 /usr/local/bin/pigps
-sudo cp -r ./service/pigps /etc/systemd/system/
+sudo chmod +x /usr/local/bin/pigps
+sudo cp -r ./service/pigps/* /etc/systemd/system/
 sudo chown root /etc/systemd/system/pigps
 sudo systemctl enable pigps
 sudo systemctl start pigps
