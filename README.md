@@ -35,14 +35,26 @@ echo dtoverlay=disable-bt | tee -a /boot/config.txt
 sudo reboot
 ```
 
+## Installation
 
-## Build
+```bash
+curl -LO https://github.com/rakiyoshi/raspi-virtual-gps-receiver/releases/download/v0.0.8/pigps_0.0.8_arm32
+sudo cp ./pigps_0.0.8_arm32 /usr/local/bin/pigps
+sudo cp -r ./service/pigps /etc/systemd/system/
+sudo chown root /etc/systemd/system/pigps
+sudo systemctl enable pigps
+sudo systemctl start pigps
+```
 
+
+## Build guide
+
+### Build
 ```bash
 goreleaser build --snapshot --rm-dist
 ```
 
-## Run
+### Run
 
 ```bash
 ./dist/pigps_linux_arm64/pigps
@@ -50,5 +62,5 @@ goreleaser build --snapshot --rm-dist
 # ./dist/pigps_linux_arm_6/pigps
 ```
 
-## Reference
+### Reference
 [NMEAフォーマット](http://www.hdlc.jp/~jh8xvh/jp/gps/nmea.html)
