@@ -1,0 +1,10 @@
+[Unit]
+Description = pigps
+
+[Service]
+ExecStart = /etc/systemd/system/pigps/run.sh
+Restart = always
+Type = simple
+
+[Install]
+WantedBy = multi-user.target
