@@ -33,7 +33,7 @@ func NewTransmitter() Transmitter {
 
 func initSerial() serial.Port {
 	mode := &serial.Mode{BaudRate: 4800}
-	port, err := serial.Open("/dev/ttyAMA0", mode)
+	port, err := serial.Open("/dev/serial0", mode)
 	if err != nil {
 		log.Fatal(err)
 	}
