@@ -1,3 +1,4 @@
+version: 2
 before:
   hooks:
     - go mod tidy
@@ -11,11 +12,12 @@ builds:
       - arm
       - arm64
 archives:
-  - format: binary
-    replacements:
-      arm64: arm64
-      arm: arm32
-    name_template: "{{ .Binary }}_{{ .Version }}_{{ .Arch }}"
+  - formats:
+      - binary
+    name_template: >-
+      {{ .Binary }}_{{ .Version }}_
+      {{- if eq .Arch "arm" }}arm32
+      {{- else }}{{ .Arch }}{{ end }}
 checksum:
   name_template: 'checksums.txt'
 changelog:
